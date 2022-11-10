@@ -18,11 +18,46 @@ let pages = 1;
 const per_page = 40;
 let searchItems = null;
 
+const options = {
+  root: null,
+  rootMargin: '300px',
+  threshold: 1,
+};
+
+const observer = new IntersectionObserver((entries, observe) => {
+  entries.forEach(async entry => {
+    if (entry.isIntersecting) {
+      console.log('observer');
+      pages += 1;
+      if (!searchItems) {
+        return;
+      }
+      try {
+        const data = await getData(searchItems, per_page, pages);
+
+        if (pages * per_page >= data.totalHits) {
+          observer.unobserve(updateData);
+        }
+        markupPlease.innerHTML += fillListImage(data.hits);
+
+        lightbox.refresh();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  });
+}, options);
+
+observer.observe(updateData);
+
 async function paramsQuery(event) {
   event.preventDefault();
 
   searchItems = event.target.elements['searchQuery'].value;
   try {
+    if (!searchItems) {
+      return;
+    }
     const data = await getData(searchItems, per_page, pages);
 
     const markup = fillListImage(data.hits);
@@ -36,31 +71,13 @@ async function paramsQuery(event) {
       );
       return;
     }
-    Notiflix.Notify.info(`"Hooray! We found ${data.totalHits} images."`);
+
     updateData.classList.remove('is-hidden');
-  } catch (error) {
-    console.log(error);
-  }
-}
 
-async function addItemImg() {
-  try {
-    pages += 1;
-    const data = await getData(searchItems, per_page, pages);
-
-    if (pages * per_page >= data.totalHits) {
-      updateData.classList.add('is-hidden');
-      Notiflix.Notify.info(
-        `'We're sorry, but you've reached the end of search results.'`
-      );
-    }
-
-    markupPlease.innerHTML += fillListImage(data.hits);
-    lightbox.refresh();
+    Notiflix.Notify.info(`"Hooray! We found ${data.totalHits} images."`);
   } catch (error) {
     console.log(error);
   }
 }
 
 searchImages.addEventListener('submit', paramsQuery);
-updateData.addEventListener('click', addItemImg);
