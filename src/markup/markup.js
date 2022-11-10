@@ -1,9 +1,9 @@
-export function markupForm() {
-  return `<form class="search-form" id="search-form">
-    <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
-    <button type="submit">Search</button>
-  </form>`;
-} //%%%% //%%%%%%%%%%%%
+// export function markupForm() {
+//   return `<form class="search-form" id="search-form">
+//     <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+//     <button type="submit">Search</button>
+//   </form>`;
+// } //%%%% //%%%%%%%%%%%%
 
 export function fillListImage(data) {
   return data
@@ -18,7 +18,9 @@ export function fillListImage(data) {
         downloads,
       }) => {
         return `<div class="photo-card">
-                  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+                  <a class="gallery" href="${largeImageURL}">
+                    <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+                  </a>
                   <div class="info">
                     <p class="info-item">
                       <b>Likes</b>${likes}
@@ -32,8 +34,8 @@ export function fillListImage(data) {
                     <p class="info-item">
                       <b>Downloads</b>${downloads}
                     </p>
-    </div>
-  </div>`;
+                  </div>
+                </div>`;
       }
     )
     .join('');

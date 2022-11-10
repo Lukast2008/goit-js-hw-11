@@ -27,7 +27,7 @@ button {
 .photo-card {
   display: flex;
   flex-wrap: wrap;
-  width: 300px;
+  width: 370px;
   height: 400px;
   gap: 10px;
 }
@@ -43,7 +43,7 @@ button {
 }
 
 img {
-  width: 300px;
+  width: 370px;
 }
 
 .load-more {
