@@ -10,9 +10,9 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 let lightbox = new SimpleLightbox('.gallery a');
 
-searchImages = document.querySelector('form');
-markupPlease = document.querySelector('.gallery');
-updateData = document.querySelector('.load-more');
+const searchImages = document.querySelector('form');
+const markupPlease = document.querySelector('.gallery');
+const updateData = document.querySelector('.load-more');
 
 let pages = 1;
 const per_page = 40;
