@@ -27,7 +27,6 @@ const options = {
 const observer = new IntersectionObserver((entries, observe) => {
   entries.forEach(async entry => {
     if (entry.isIntersecting) {
-      console.log('observer');
       pages += 1;
       if (!searchItems) {
         return;
