@@ -36,6 +36,9 @@ const observer = new IntersectionObserver((entries, observe) => {
 
         if (pages * per_page >= data.totalHits) {
           observer.unobserve(updateData);
+          Notiflix.Notify.failure(
+            `'We're sorry, but you've reached the end of search results.'`
+          );
         }
         markupPlease.innerHTML += fillListImage(data.hits);
 
